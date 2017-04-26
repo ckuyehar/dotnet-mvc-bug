@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp1.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore" Version="1.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="1.1.2" />
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="1.1.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="1.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>  
+    <WebAssets Include="assets\**\*.*"/>  
+  </ItemGroup>
+
+  <Target Name="CopyAssets" AfterTargets="Build">
+    <Message Importance="High" Text="Synchronizing web assets..." />
+    <Copy SkipUnchangedFiles="true"
+          SourceFiles="@(WebAssets)"
+          DestinationFiles="@(WebAssets->'wwwroot\assets\%(RecursiveDir)%(Filename)%(Extension)')" />
+  </Target>
+</Project>
